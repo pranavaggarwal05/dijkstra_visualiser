@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PathFinder — Dijkstra's Algorithm Explorer</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+:root{--bg:#0a0e1a;--bg2:#0d1220;--bg3:#111827;--panel:#141c2e;--panel2:#1a2440;--border:#1e2d4a;--accent:#00e5a0;--accent2:#00b4d8;--accent3:#f72585;--short:#00e5a0;--normal:#f72585;--text:#e8f0fe;--text2:#8899bb;--text3:#4a5a7a;--gold:#ffd60a;--radius:12px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,14,26,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between}
+.nav-brand{font-family:'Syne',sans-serif;font-weight:800;font-size:1.3rem;display:flex;align-items:center;gap:10px}
+.dot{width:10px;height:10px;background:var(--accent);border-radius:50%;box-shadow:0 0 12px var(--accent);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.3)}}
+.nav-links{display:flex;gap:6px}
+.nav-link{padding:8px 16px;border-radius:8px;font-size:.72rem;cursor:pointer;transition:all .2s;border:1px solid transparent;color:var(--text2);letter-spacing:.05em;text-transform:uppercase;font-family:'Space Mono',monospace}
+.nav-link:hover,.nav-link.active{background:var(--panel2);border-color:var(--border);color:var(--text)}
+.nav-link.active{color:var(--accent);border-color:#00e5a022}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 2rem 4rem;position:relative;overflow:hidden}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:60px 60px;opacity:.25;mask-image:radial-gradient(ellipse 70% 60% at 50% 50%,black,transparent)}
+.hero-glow{position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(0,229,160,.07),transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%)}
+.hero-tag{font-family:'Space Mono',monospace;font-size:.72rem;color:var(--accent);letter-spacing:.15em;text-transform:uppercase;margin-bottom:1.5rem}
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(3rem,8vw,6rem);font-weight:800;line-height:.95;letter-spacing:-.04em;margin-bottom:1.5rem}
+.hero h1 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:1rem;color:var(--text2);max-width:480px;line-height:1.7;margin-bottom:3rem}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.btn{padding:12px 28px;border-radius:10px;font-weight:600;cursor:pointer;transition:all .25s;border:none;font-family:'Syne',sans-serif;font-size:.9rem}
+.btn-primary{background:var(--accent);color:#000}
+.btn-primary:hover{background:#00ffb3;transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,229,160,.3)}
+.btn-secondary{background:transparent;color:var(--text);border:1px solid var(--border)}
+.btn-secondary:hover{border-color:var(--accent);color:var(--accent)}
+.section-wrap{padding:5rem 2rem;max-width:1400px;margin:0 auto}
+.full-section{padding:5rem 2rem;background:var(--bg2)}
+.full-inner{max-width:1400px;margin:0 auto}
+.section-tag{font-family:'Space Mono',monospace;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:.8rem}
+.section-title{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;letter-spacing:-.03em;line-height:1.1}
+.section-sub{color:var(--text2);margin-top:.8rem;font-size:.93rem;line-height:1.6}
+.section-header{margin-bottom:2.5rem}
+.two-col{display:grid;grid-template-columns:1fr 340px;gap:1.5rem;align-items:start}
+@media(max-width:900px){.two-col{grid-template-columns:1fr}}
+.control-panel{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:1.4rem;display:flex;flex-direction:column;gap:1rem}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text2)}
+.field select{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-family:'Inter',sans-serif;font-size:.88rem;outline:none;transition:border-color .2s;cursor:pointer;-webkit-appearance:none;width:100%}
+.field select:focus{border-color:var(--accent)}
+.run-btn{padding:12px 24px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:9px;color:#000;font-weight:700;font-family:'Syne',sans-serif;cursor:pointer;font-size:.9rem;transition:all .25s;width:100%}
+.run-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,229,160,.35)}
+.results-panel{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:1.4rem;display:none}
+.results-panel.show{display:block}
+.res-label{font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text2);margin-bottom:1rem}
+.res-row{margin-bottom:14px}
+.res-header{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.res-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.res-type{font-family:'Space Mono',monospace;font-size:.7rem;color:var(--text2);text-transform:uppercase}
+.res-dist{font-family:'Space Mono',monospace;font-weight:700;font-size:.85rem;color:var(--gold);margin-left:auto}
+.res-path{font-size:.82rem;color:var(--text2);line-height:1.6;word-break:break-word}
+.progress{height:3px;background:var(--bg3);border-radius:2px;overflow:hidden;margin-top:6px}
+.progress-bar{height:100%;width:0;border-radius:2px;transition:width 1.2s ease}
+.campus-wrap{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+#campusCanvas{display:block;width:100%;cursor:crosshair}
+.legend{display:flex;gap:18px;flex-wrap:wrap;padding:10px 16px;background:var(--panel2);border-top:1px solid var(--border)}
+.legend-item{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--text2)}
+.legend-line{width:20px;height:3px;border-radius:2px}
+#indiaMap,#worldMap{height:500px;border-radius:var(--radius);border:1px solid var(--border);overflow:hidden}
+.leaflet-container{background:#070b14!important}
+.leaflet-tooltip{background:var(--panel2)!important;border:1px solid var(--border)!important;color:var(--text)!important;font-family:'Space Mono',monospace!important;font-size:.72rem!important;border-radius:6px!important;box-shadow:0 4px 12px rgba(0,0,0,.5)!important}
+.leaflet-tooltip::before{display:none!important}
+.sig-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin-top:1.5rem}
+.sig-card{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:1.4rem;transition:all .3s}
+.sig-card:hover{border-color:#00e5a044;transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,229,160,.08)}
+.sig-icon{font-size:2rem;margin-bottom:.8rem}
+.sig-title{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;margin-bottom:.4rem}
+.sig-text{font-size:.83rem;color:var(--text2);line-height:1.6}
+.algo-box{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:1.4rem}
+.step-list{list-style:none;display:flex;flex-direction:column;gap:7px;margin-top:1rem}
+.step-item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:8px;font-size:.84rem;background:var(--bg3);border:1px solid var(--border);transition:all .4s;line-height:1.5}
+.step-item.active{border-color:var(--accent);background:rgba(0,229,160,.07);color:var(--accent)}
+.step-num{font-family:'Space Mono',monospace;font-size:.68rem;color:var(--accent);min-width:22px;margin-top:2px;flex-shrink:0}
+.chip-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:1rem}
+.chip{padding:5px 12px;border-radius:20px;font-family:'Space Mono',monospace;font-size:.66rem;background:var(--panel2);border:1px solid var(--border);color:var(--text2)}
+.chip.g{border-color:#00e5a044;color:var(--accent);background:rgba(0,229,160,.06)}
+.chip.r{border-color:#f7258544;color:var(--accent3);background:rgba(247,37,133,.06)}
+.hint{font-size:.74rem;color:var(--text3)}
+footer{border-top:1px solid var(--border);padding:2rem;text-align:center;font-size:.77rem;color:var(--text3);font-family:'Space Mono',monospace;line-height:1.8}
+#tooltip{position:fixed;background:var(--panel2);border:1px solid var(--border);border-radius:7px;padding:6px 12px;font-size:.78rem;pointer-events:none;z-index:9000;display:none;font-family:'Space Mono',monospace;color:var(--accent)}
+</style>
+</head>
+<body>
+<div id="tooltip"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand"><div class="dot"></div>PathFinder</div>
+  <div class="nav-links">
+    <div class="nav-link active" onclick="gotoSection('hero')">Home</div>
+    <div class="nav-link" onclick="gotoSection('campus')">Campus</div>
+    <div class="nav-link" onclick="gotoSection('india')">India</div>
+    <div class="nav-link" onclick="gotoSection('world')">World</div>
+    <div class="nav-link" onclick="gotoSection('significance')">About</div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div style="position:relative;z-index:1">
+    <div class="hero-tag">Dijkstra's Algorithm Visualizer</div>
+    <h1>Find The<br><span>Shortest Path</span><br>Anywhere</h1>
+    <p class="hero-sub">From campus corridors to world maps — watch Dijkstra's algorithm find optimal routes through real-time interactive visualizations.</p>
+    <div class="hero-btns">
+      <button class="btn btn-primary" onclick="gotoSection('campus')">Start Exploring →</button>
+      <button class="btn btn-secondary" onclick="gotoSection('significance')">Learn the Algorithm</button>
+    </div>
+  </div>
+</div>
+
+<!-- CAMPUS -->
+<div id="campus" class="section-wrap">
+  <div class="section-header">
+    <div class="section-tag">Section 01 — Campus Map</div>
+    <div class="section-title">VIT Campus Navigation</div>
+    <div class="section-sub">Click any two buildings on the map OR use the dropdowns below. <span style="color:var(--short)">Green = Dijkstra shortest path</span> · <span style="color:var(--normal)">Red = Alternate longer route</span></div>
+  </div>
+  <div class="two-col">
+    <div>
+      <div class="campus-wrap">
+        <canvas id="campusCanvas" width="860" height="500"></canvas>
+        <div class="legend">
+          <div class="legend-item"><div class="legend-line" style="background:var(--short)"></div>Shortest Path</div>
+          <div class="legend-item"><div class="legend-line" style="background:var(--normal)"></div>Normal Path</div>
+          <div class="legend-item">🔵 Source &nbsp;&nbsp; 🟡 Destination</div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:1rem">
+      <div class="control-panel">
+        <div class="section-tag" style="margin-bottom:0">Route Planner</div>
+        <div class="field"><label>Source Building</label>
+          <select id="campusSrc"><option value="">Select source...</option></select></div>
+        <div class="field"><label>Destination Building</label>
+          <select id="campusDst"><option value="">Select destination...</option></select></div>
+        <button class="run-btn" onclick="runCampus()">▶ Calculate Routes</button>
+        <div class="hint">💡 Or click nodes directly: 1st click = source, 2nd = destination</div>
+      </div>
+      <div class="results-panel" id="campusResults"></div>
+    </div>
+  </div>
+</div>
+
+<!-- INDIA -->
+<div id="india" class="full-section">
+  <div class="full-inner">
+    <div class="section-header">
+      <div class="section-tag">Section 02 — India Map</div>
+      <div class="section-title">Navigate Across India</div>
+      <div class="section-sub">Select two cities from dropdowns or click map markers. Cities connect to their nearest geographic neighbors.</div>
+    </div>
+    <div class="two-col">
+      <div id="indiaMap"></div>
+      <div style="display:flex;flex-direction:column;gap:1rem">
+        <div class="control-panel">
+          <div class="section-tag" style="margin-bottom:0">State Route Planner</div>
+          <div class="field"><label>From City</label>
+            <select id="indiaSrc"><option value="">Select source...</option></select></div>
+          <div class="field"><label>To City</label>
+            <select id="indiaDst"><option value="">Select destination...</option></select></div>
+          <button class="run-btn" onclick="runIndia()">▶ Find Routes</button>
+          <div class="hint">🗺️ Click map markers to select (1st = source, 2nd = destination)</div>
+        </div>
+        <div class="results-panel" id="indiaResults"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WORLD -->
+<div id="world" class="section-wrap">
+  <div class="section-header">
+    <div class="section-tag">Section 03 — World Map</div>
+    <div class="section-title">Global Route Explorer</div>
+    <div class="section-sub">World capitals as nodes with iconic landmarks. Select countries from dropdowns or click map markers.</div>
+  </div>
+  <div class="two-col">
+    <div id="worldMap"></div>
+    <div style="display:flex;flex-direction:column;gap:1rem">
+      <div class="control-panel">
+        <div class="section-tag" style="margin-bottom:0">World Route Planner</div>
+        <div class="field"><label>From Country</label>
+          <select id="worldSrc"><option value="">Select source...</option></select></div>
+        <div class="field"><label>To Country</label>
+          <select id="worldDst"><option value="">Select destination...</option></select></div>
+        <button class="run-btn" onclick="runWorld()">▶ Find Global Route</button>
+        <div class="hint">🌍 Click map markers to select (1st = source, 2nd = destination)</div>
+      </div>
+      <div class="results-panel" id="worldResults"></div>
+    </div>
+  </div>
+</div>
+
+<!-- SIGNIFICANCE -->
+<div id="significance" class="full-section">
+  <div class="full-inner">
+    <div class="section-header">
+      <div class="section-tag">About the Algorithm</div>
+      <div class="section-title">Why Dijkstra Matters</div>
+      <div class="section-sub">Edsger W. Dijkstra published this algorithm in 1959. It remains one of the most fundamental algorithms in computer science.</div>
+    </div>
+    <div class="two-col">
+      <div>
+        <div class="algo-box">
+          <div class="section-tag" style="margin-bottom:0">Algorithm Steps — Click Animate</div>
+          <ul class="step-list" id="algoStepList">
+            <li class="step-item"><span class="step-num">01</span>Set all node distances to ∞, except source = 0</li>
+            <li class="step-item"><span class="step-num">02</span>Add all nodes to a min-priority queue (unvisited set)</li>
+            <li class="step-item"><span class="step-num">03</span>Extract the node with the minimum tentative distance</li>
+            <li class="step-item"><span class="step-num">04</span>For each unvisited neighbor, compute tentative distance</li>
+            <li class="step-item"><span class="step-num">05</span>If tentative distance &lt; known distance, update it</li>
+            <li class="step-item"><span class="step-num">06</span>Mark current node as permanently visited</li>
+            <li class="step-item"><span class="step-num">07</span>Repeat steps 03–06 until destination is reached</li>
+            <li class="step-item"><span class="step-num">08</span>Backtrack via previous-node map to reconstruct shortest path</li>
+          </ul>
+          <button class="run-btn" style="margin-top:1rem" onclick="animateAlgoSteps()">▶ Animate Steps</button>
+        </div>
+        <div style="margin-top:1rem;background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:1.2rem">
+          <div class="section-tag" style="margin-bottom:.5rem">Complexity</div>
+          <div class="chip-row">
+            <div class="chip g">Time: O((V+E) log V)</div>
+            <div class="chip">Space: O(V)</div>
+            <div class="chip r">No negative weights</div>
+            <div class="chip g">Always optimal</div>
+          </div>
+        </div>
+      </div>
+      <div class="sig-grid">
+        <div class="sig-card"><div class="sig-icon">🚗</div><div class="sig-title">GPS Navigation</div><div class="sig-text">Google Maps and Waze use Dijkstra variants to find the fastest driving route between any two points.</div></div>
+        <div class="sig-card"><div class="sig-icon">🌐</div><div class="sig-title">Network Routing</div><div class="sig-text">OSPF — the internet routing protocol — is a direct implementation of Dijkstra's algorithm on network graphs.</div></div>
+        <div class="sig-card"><div class="sig-icon">📦</div><div class="sig-title">Logistics</div><div class="sig-text">FedEx and Amazon optimize millions of daily delivery routes using shortest-path algorithms from Dijkstra.</div></div>
+        <div class="sig-card"><div class="sig-icon">🎮</div><div class="sig-title">Game AI</div><div class="sig-text">NPC pathfinding in open-world games uses A* — a heuristic-guided extension of Dijkstra's core algorithm.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>PathFinder — Dijkstra's Algorithm Explorer &nbsp;|&nbsp; HTML5 Canvas · Leaflet.js · Vanilla JavaScript<br>Algorithm: E.W. Dijkstra (1959) · Data Structure: Min-Heap Priority Queue</footer>
+
+<script>
+/* ===============================================================
+   DIJKSTRA'S ALGORITHM (core)
+   =============================================================== */
+function dijkstra(graph, src, dst) {
+  const dist = {}, prev = {};
+  Object.keys(graph).forEach(n => { dist[n] = Infinity; prev[n] = null; });
+  dist[src] = 0;
+  const visited = new Set();
+  const pq = [[0, src]]; // [cost, node]
+
+  while (pq.length) {
+    pq.sort((a, b) => a[0] - b[0]);
+    const [d, u] = pq.shift();
+    if (visited.has(u)) continue;
+    visited.add(u);
+    if (u === dst) break;
+    if (!graph[u]) continue;
+    for (const [v, w] of graph[u]) {
+      const alt = dist[u] + w;
+      if (alt < dist[v]) {
+        dist[v] = alt;
+        prev[v] = u;
+        pq.push([alt, v]);
+      }
+    }
+  }
+  const path = [];
+  let cur = dst;
+  while (cur !== null && cur !== undefined) { path.unshift(cur); cur = prev[cur]; }
+  const valid = path.length >= 2 && path[0] === src;
+  return { path: valid ? path : [], dist: valid ? dist[dst] : Infinity };
+}
+
+// Build alternate (longer) path via a detour node
+function getAlternatePath(graph, src, dst, nodes) {
+  const others = Object.keys(nodes).filter(n => n !== src && n !== dst);
+  const shuffled = [...others].sort(() => Math.random() - 0.5).slice(0, 10);
+  let best = null, bestDist = 0;
+  for (const mid of shuffled) {
+    const r1 = dijkstra(graph, src, mid);
+    const r2 = dijkstra(graph, mid, dst);
+    if (r1.path.length > 1 && r2.path.length > 1 && isFinite(r1.dist) && isFinite(r2.dist)) {
+      const total = r1.dist + r2.dist;
+      if (total > bestDist) {
+        best = { path: [...r1.path, ...r2.path.slice(1)], dist: Math.round(total * 10) / 10 };
+        bestDist = total;
+      }
+    }
+  }
+  if (!best) {
+    const r = dijkstra(graph, src, dst);
+    best = { path: r.path, dist: Math.round(r.dist * 1.45 * 10) / 10 };
+  }
+  return best;
+}
+
+// Haversine distance in km
+function haversine(lat1, lon1, lat2, lon2) {
+  const R = 6371;
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180) * Math.cos(lat2*Math.PI/180) * Math.sin(dLon/2)**2;
+  return Math.round(R * 2 * Math.asin(Math.sqrt(a)));
+}
+
+// Build geographic graph by connecting each node to k nearest neighbors
+function buildGeoGraph(cities, k) {
+  k = k || 5;
+  const names = Object.keys(cities);
+  const g = {};
+  names.forEach(n => g[n] = []);
+  names.forEach(a => {
+    const ca = cities[a];
+    const dists = names.filter(b => b !== a).map(b => ({
+      b, d: haversine(ca.lat, ca.lng, cities[b].lat, cities[b].lng)
+    }));
+    dists.sort((x, y) => x.d - y.d);
+    dists.slice(0, k).forEach(function(item) {
+      const b = item.b, d = item.d;
+      if (!g[a].find(e => e[0] === b)) g[a].push([b, d]);
+      if (!g[b].find(e => e[0] === a)) g[b].push([a, d]);
+    });
+  });
+  return g;
+}
+
+function populateSelect(id, keys) {
+  const el = document.getElementById(id);
+  el.innerHTML = '<option value="">Select...</option>';
+  keys.forEach(k => {
+    const o = document.createElement('option');
+    o.value = k; o.textContent = k;
+    el.appendChild(o);
+  });
+}
+
+function showResults(panelId, shortest, normal) {
+  const el = document.getElementById(panelId);
+  el.className = 'results-panel show';
+  const sd = isFinite(shortest.dist) ? (+shortest.dist).toFixed(1) : '—';
+  const nd = isFinite(normal.dist)   ? (+normal.dist).toFixed(1)   : '—';
+  const maxD = Math.max(parseFloat(sd) || 0, parseFloat(nd) || 0) || 1;
+  el.innerHTML =
+    '<div class="res-label">Route Results</div>' +
+    '<div class="res-row">' +
+      '<div class="res-header">' +
+        '<div class="res-dot" style="background:var(--short);box-shadow:0 0 8px var(--short)"></div>' +
+        '<div class="res-type">Shortest (Dijkstra)</div>' +
+        '<div class="res-dist">' + sd + ' km</div>' +
+      '</div>' +
+      '<div class="res-path" style="color:var(--short)">' + (shortest.path.join(' → ') || 'No path found') + '</div>' +
+      '<div class="progress"><div class="progress-bar" id="pb1" style="background:var(--short)"></div></div>' +
+    '</div>' +
+    '<div class="res-row" style="margin-top:8px">' +
+      '<div class="res-header">' +
+        '<div class="res-dot" style="background:var(--normal);box-shadow:0 0 8px var(--normal)"></div>' +
+        '<div class="res-type">Normal (Alternate)</div>' +
+        '<div class="res-dist">' + nd + ' km</div>' +
+      '</div>' +
+      '<div class="res-path" style="color:var(--normal)">' + (normal.path.join(' → ') || 'No path found') + '</div>' +
+      '<div class="progress"><div class="progress-bar" id="pb2" style="background:var(--normal)"></div></div>' +
+    '</div>';
+  setTimeout(function() {
+    var pb1 = document.getElementById('pb1');
+    var pb2 = document.getElementById('pb2');
+    if (pb1) pb1.style.width = ((parseFloat(sd)||0) / maxD * 100) + '%';
+    if (pb2) pb2.style.width = ((parseFloat(nd)||0) / maxD * 100) + '%';
+  }, 100);
+}
+
+function gotoSection(id) {
+  var el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
+
+/* ===============================================================
+   CAMPUS CANVAS
+   =============================================================== */
+var campusNodes = {
+  'Main Gate':      {x:75,  y:250, icon:'🚪'},
+  'Admin Block':    {x:190, y:140, icon:'🏛️'},
+  'Library':        {x:330, y:90,  icon:'📚'},
+  'Tech Tower':     {x:480, y:70,  icon:'🔬'},
+  'AB-1':           {x:450, y:195, icon:'🏫'},
+  'AB-2':           {x:600, y:148, icon:'🏫'},
+  'Canteen':        {x:370, y:305, icon:'🍽️'},
+  'Sports Complex': {x:185, y:395, icon:'⚽'},
+  'Hostel A':       {x:650, y:305, icon:'🏠'},
+  'Hostel B':       {x:762, y:193, icon:'🏠'},
+  'Medical Centre': {x:92,  y:385, icon:'🏥'},
+  'Parking':        {x:79,  y:132, icon:'🅿️'},
+  'Chapel':         {x:538, y:392, icon:'⛪'},
+  'Auditorium':     {x:730, y:392, icon:'🎭'},
+};
+
+var campusEdgeList = [
+  ['Main Gate','Admin Block',0.4],['Main Gate','Sports Complex',0.6],['Main Gate','Medical Centre',0.3],['Main Gate','Parking',0.25],
+  ['Admin Block','Library',0.35],['Admin Block','Parking',0.2],['Admin Block','AB-1',0.5],['Admin Block','Canteen',0.6],
+  ['Library','Tech Tower',0.3],['Library','AB-1',0.38],
+  ['Tech Tower','AB-1',0.25],['Tech Tower','AB-2',0.35],
+  ['AB-1','AB-2',0.3],['AB-1','Canteen',0.35],
+  ['AB-2','Hostel B',0.4],['AB-2','Canteen',0.42],
+  ['Canteen','Sports Complex',0.5],['Canteen','Hostel A',0.4],['Canteen','Chapel',0.35],
+  ['Sports Complex','Medical Centre',0.35],['Sports Complex','Chapel',0.6],
+  ['Hostel A','Hostel B',0.3],['Hostel A','Chapel',0.38],['Hostel A','Auditorium',0.33],
+  ['Hostel B','Auditorium',0.42],['Chapel','Auditorium',0.28],
+];
+
+function buildEdgeGraph(edges) {
+  var g = {};
+  for (var i = 0; i < edges.length; i++) {
+    var a = edges[i][0], b = edges[i][1], w = edges[i][2];
+    if (!g[a]) g[a] = [];
+    if (!g[b]) g[b] = [];
+    g[a].push([b, w]);
+    g[b].push([a, w]);
+  }
+  return g;
+}
+var campusGraph = buildEdgeGraph(campusEdgeList);
+populateSelect('campusSrc', Object.keys(campusNodes));
+populateSelect('campusDst', Object.keys(campusNodes));
+
+var cnv = document.getElementById('campusCanvas');
+var ctx = cnv.getContext('2d');
+var cSrc = '', cDst = '', cClickStep = 0;
+var activeShortPath = [], activeNormPath = [];
+
+function isEdgeInPath(a, b, path) {
+  for (var i = 0; i < path.length - 1; i++) {
+    if ((path[i]===a && path[i+1]===b) || (path[i]===b && path[i+1]===a)) return true;
+  }
+  return false;
+}
+
+function drawCampus(sp, np) {
+  var W = cnv.width, H = cnv.height;
+  ctx.clearRect(0, 0, W, H);
+
+  // Background
+  var grad = ctx.createLinearGradient(0,0,W,H);
+  grad.addColorStop(0,'#0d1220'); grad.addColorStop(1,'#111827');
+  ctx.fillStyle = grad; ctx.fillRect(0,0,W,H);
+
+  // Grid lines
+  ctx.strokeStyle = 'rgba(30,45,74,0.4)'; ctx.lineWidth = 1;
+  for (var x = 0; x < W; x += 50) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
+  for (var y = 0; y < H; y += 50) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
+
+  // Campus zone
+  ctx.fillStyle = 'rgba(67,97,238,0.04)';
+  ctx.beginPath(); ctx.ellipse(430,230,380,200,0,0,Math.PI*2); ctx.fill();
+
+  // Draw edges
+  for (var ei = 0; ei < campusEdgeList.length; ei++) {
+    var a = campusEdgeList[ei][0], b = campusEdgeList[ei][1], w = campusEdgeList[ei][2];
+    var na = campusNodes[a], nb = campusNodes[b];
+    var inS = isEdgeInPath(a, b, sp);
+    var inN = isEdgeInPath(a, b, np);
+    ctx.beginPath(); ctx.moveTo(na.x, na.y); ctx.lineTo(nb.x, nb.y);
+    if (inS) {
+      ctx.strokeStyle = '#00e5a0'; ctx.lineWidth = 4;
+      ctx.shadowColor = '#00e5a0'; ctx.shadowBlur = 14;
+    } else if (inN) {
+      ctx.strokeStyle = '#f72585'; ctx.lineWidth = 3;
+      ctx.shadowColor = '#f72585'; ctx.shadowBlur = 10;
+    } else {
+      ctx.strokeStyle = 'rgba(30,45,74,0.9)'; ctx.lineWidth = 1.5;
+      ctx.shadowBlur = 0;
+    }
+    ctx.stroke(); ctx.shadowBlur = 0;
+    // Weight label on active edges
+    if (inS || inN) {
+      var mx = (na.x+nb.x)/2, my = (na.y+nb.y)/2;
+      ctx.fillStyle = inS ? '#00e5a0' : '#f72585';
+      ctx.font = 'bold 10px monospace';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText(w+'km', mx, my - 9);
+    }
+  }
+
+  // Draw nodes
+  var nodeNames = Object.keys(campusNodes);
+  for (var ni = 0; ni < nodeNames.length; ni++) {
+    var name = nodeNames[ni], n = campusNodes[name];
+    var isSrc = name === cSrc, isDst = name === cDst;
+    var inS2 = sp.includes(name), inN2 = np.includes(name);
+    var r = 20;
+
+    ctx.shadowBlur = (isSrc||isDst) ? 22 : (inS2||inN2) ? 12 : 0;
+    ctx.shadowColor = isSrc ? '#00b4d8' : isDst ? '#ffd60a' : inS2 ? '#00e5a0' : '#f72585';
+
+    ctx.beginPath(); ctx.arc(n.x, n.y, r, 0, Math.PI*2);
+    ctx.fillStyle = isSrc ? 'rgba(0,180,216,0.22)' : isDst ? 'rgba(255,214,10,0.22)' :
+                    inS2 ? 'rgba(0,229,160,0.15)' : inN2 ? 'rgba(247,37,133,0.12)' : 'rgba(17,24,39,0.95)';
+    ctx.fill();
+    ctx.strokeStyle = isSrc ? '#00b4d8' : isDst ? '#ffd60a' : inS2 ? '#00e5a0' : inN2 ? '#f72585' : '#1e2d4a';
+    ctx.lineWidth = (isSrc||isDst) ? 2.5 : 1.5;
+    ctx.stroke(); ctx.shadowBlur = 0;
+
+    ctx.font = '14px serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(n.icon, n.x, n.y);
+
+    ctx.font = '10px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+    ctx.fillStyle = isSrc ? '#00b4d8' : isDst ? '#ffd60a' : (inS2||inN2) ? '#e8f0fe' : '#8899bb';
+    ctx.fillText(name, n.x, n.y + r + 4);
+  }
+}
+
+function animateDraw(sp, np) {
+  var total = Math.max(sp.length, np.length);
+  var frame = 0;
+  function tick() {
+    var si = Math.min(frame + 1, sp.length);
+    var ni = Math.min(frame + 1, np.length);
+    drawCampus(sp.slice(0, si), np.slice(0, ni));
+    frame++;
+    if (frame < total) {
+      setTimeout(function() { requestAnimationFrame(tick); }, 130);
+    } else {
+      drawCampus(sp, np);
+    }
+  }
+  requestAnimationFrame(tick);
+}
+
+function runCampus() {
+  var src = document.getElementById('campusSrc').value;
+  var dst = document.getElementById('campusDst').value;
+  if (!src || !dst) { alert('Please select both source and destination.'); return; }
+  if (src === dst)  { alert('Source and destination must be different.'); return; }
+  cSrc = src; cDst = dst;
+  var sh = dijkstra(campusGraph, src, dst);
+  var no = getAlternatePath(campusGraph, src, dst, campusNodes);
+  activeShortPath = sh.path; activeNormPath = no.path;
+  animateDraw(activeShortPath, activeNormPath);
+  showResults('campusResults', sh, no);
+}
+
+cnv.addEventListener('click', function(e) {
+  var rect = cnv.getBoundingClientRect();
+  var sx = cnv.width / rect.width, sy = cnv.height / rect.height;
+  var mx = (e.clientX - rect.left) * sx;
+  var my = (e.clientY - rect.top) * sy;
+  var names = Object.keys(campusNodes);
+  for (var i = 0; i < names.length; i++) {
+    var name = names[i], n = campusNodes[name];
+    if (Math.hypot(mx - n.x, my - n.y) < 24) {
+      if (cClickStep === 0) {
+        cSrc = name; document.getElementById('campusSrc').value = name;
+        cClickStep = 1; drawCampus(activeShortPath, activeNormPath);
+      } else {
+        cDst = name; document.getElementById('campusDst').value = name;
+        cClickStep = 0; runCampus();
+      }
+      break;
+    }
+  }
+});
+
+cnv.addEventListener('mousemove', function(e) {
+  var rect = cnv.getBoundingClientRect();
+  var sx = cnv.width / rect.width, sy = cnv.height / rect.height;
+  var mx = (e.clientX - rect.left) * sx, my = (e.clientY - rect.top) * sy;
+  var tip = document.getElementById('tooltip');
+  var names = Object.keys(campusNodes);
+  for (var i = 0; i < names.length; i++) {
+    var name = names[i], n = campusNodes[name];
+    if (Math.hypot(mx - n.x, my - n.y) < 24) {
+      tip.style.display = 'block';
+      tip.style.left = (e.clientX + 12) + 'px';
+      tip.style.top  = (e.clientY - 30) + 'px';
+      tip.textContent = name;
+      return;
+    }
+  }
+  tip.style.display = 'none';
+});
+cnv.addEventListener('mouseleave', function() { document.getElementById('tooltip').style.display = 'none'; });
+
+drawCampus([], []);
+
+/* ===============================================================
+   INDIA MAP (Leaflet)
+   =============================================================== */
+var indiaCities = {
+  'Delhi':         {lat:28.61,lng:77.21,icon:'🕌'},
+  'Mumbai':        {lat:19.08,lng:72.88,icon:'🌉'},
+  'Kolkata':       {lat:22.57,lng:88.36,icon:'🛕'},
+  'Chennai':       {lat:13.08,lng:80.27,icon:'🏛️'},
+  'Bangalore':     {lat:12.97,lng:77.59,icon:'💻'},
+  'Hyderabad':     {lat:17.38,lng:78.48,icon:'💎'},
+  'Ahmedabad':     {lat:23.02,lng:72.57,icon:'🏭'},
+  'Pune':          {lat:18.52,lng:73.86,icon:'🎓'},
+  'Jaipur':        {lat:26.91,lng:75.79,icon:'🏰'},
+  'Lucknow':       {lat:26.85,lng:80.95,icon:'🕌'},
+  'Bhopal':        {lat:23.26,lng:77.41,icon:'⛲'},
+  'Patna':         {lat:25.59,lng:85.14,icon:'🛕'},
+  'Nagpur':        {lat:21.15,lng:79.09,icon:'🍊'},
+  'Chandigarh':    {lat:30.74,lng:76.79,icon:'🌺'},
+  'Guwahati':      {lat:26.14,lng:91.74,icon:'🍵'},
+  'Kochi':         {lat:9.93, lng:76.26,icon:'⛵'},
+  'Visakhapatnam': {lat:17.69,lng:83.22,icon:'🌊'},
+  'Indore':        {lat:22.72,lng:75.86,icon:'🏺'},
+  'Surat':         {lat:21.17,lng:72.83,icon:'💎'},
+  'Coimbatore':    {lat:11.00,lng:76.96,icon:'🏭'},
+};
+
+var indiaGraph = buildGeoGraph(indiaCities, 5);
+populateSelect('indiaSrc', Object.keys(indiaCities));
+populateSelect('indiaDst', Object.keys(indiaCities));
+
+var indiaMap = L.map('indiaMap', { center:[20.5,79], zoom:5, zoomControl:true, attributionControl:false });
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { maxZoom:18 }).addTo(indiaMap);
+
+var iSrc = '', iDst = '', iStep = 0;
+var iShortLayer = null, iNormLayer = null;
+var iMarkers = {};
+
+function makeIIcon(name, hl) {
+  var c = indiaCities[name];
+  var border = hl==='src'?'#00b4d8': hl==='dst'?'#ffd60a':'#1e2d4a';
+  var color  = hl==='src'?'#00b4d8': hl==='dst'?'#ffd60a':'#8899bb';
+  var glow   = hl ? 'box-shadow:0 0 12px '+border+'99;' : '';
+  return L.divIcon({
+    className:'',
+    html:'<div style="background:rgba(10,14,26,0.92);border:2px solid '+border+';border-radius:8px;padding:4px 8px;display:flex;align-items:center;gap:5px;white-space:nowrap;cursor:pointer;'+glow+'"><span style="font-size:15px">'+c.icon+'</span><span style="font-family:Inter,sans-serif;font-size:10px;color:'+color+';font-weight:500">'+name+'</span></div>',
+    iconAnchor:[36,18]
+  });
+}
+
+Object.keys(indiaCities).forEach(function(name) {
+  var c = indiaCities[name];
+  var m = L.marker([c.lat, c.lng], { icon: makeIIcon(name,'') }).addTo(indiaMap);
+  m.bindTooltip(name);
+  m.on('click', function() {
+    if (iStep === 0) {
+      iSrc = name; document.getElementById('indiaSrc').value = name;
+      iMarkers[name].setIcon(makeIIcon(name,'src'));
+      iStep = 1;
+    } else {
+      iDst = name; document.getElementById('indiaDst').value = name;
+      iMarkers[name].setIcon(makeIIcon(name,'dst'));
+      iStep = 0; runIndia();
+    }
+  });
+  iMarkers[name] = m;
+});
+
+function runIndia() {
+  var src = document.getElementById('indiaSrc').value;
+  var dst = document.getElementById('indiaDst').value;
+  if (!src||!dst) { alert('Please select both cities.'); return; }
+  if (src===dst)  { alert('Source and destination must be different.'); return; }
+  iSrc=src; iDst=dst;
+  iMarkers[src].setIcon(makeIIcon(src,'src'));
+  iMarkers[dst].setIcon(makeIIcon(dst,'dst'));
+
+  var sh = dijkstra(indiaGraph, src, dst);
+  var no = getAlternatePath(indiaGraph, src, dst, indiaCities);
+
+  if (iShortLayer) indiaMap.removeLayer(iShortLayer);
+  if (iNormLayer)  indiaMap.removeLayer(iNormLayer);
+
+  if (no.path.length>1) iNormLayer = L.polyline(no.path.map(function(n){return[indiaCities[n].lat,indiaCities[n].lng];}),{color:'#f72585',weight:4,opacity:.8,dashArray:'8 5'}).addTo(indiaMap);
+  if (sh.path.length>1) iShortLayer= L.polyline(sh.path.map(function(n){return[indiaCities[n].lat,indiaCities[n].lng];}),{color:'#00e5a0',weight:5,opacity:.9}).addTo(indiaMap);
+
+  showResults('indiaResults', sh, no);
+  if (sh.path.length>1) indiaMap.fitBounds(sh.path.map(function(n){return[indiaCities[n].lat,indiaCities[n].lng];}),{padding:[50,50]});
+}
+
+/* ===============================================================
+   WORLD MAP (Leaflet)
+   =============================================================== */
+var worldCities = {
+  'India':       {lat:20.59,lng:78.96,icon:'🕌',lm:'Taj Mahal'},
+  'USA':         {lat:37.09,lng:-95.71,icon:'🗽',lm:'Statue of Liberty'},
+  'France':      {lat:46.23,lng:2.21,icon:'🗼',lm:'Eiffel Tower'},
+  'China':       {lat:35.86,lng:104.20,icon:'🏯',lm:'Great Wall'},
+  'Brazil':      {lat:-14.24,lng:-51.93,icon:'🌴',lm:'Christ the Redeemer'},
+  'UK':          {lat:55.38,lng:-3.44,icon:'🏰',lm:'Big Ben'},
+  'Russia':      {lat:61.52,lng:105.32,icon:'🧅',lm:'St Basil Cathedral'},
+  'Australia':   {lat:-25.27,lng:133.78,icon:'🦘',lm:'Sydney Opera House'},
+  'Japan':       {lat:36.20,lng:138.25,icon:'⛩️',lm:'Mt Fuji'},
+  'Germany':     {lat:51.17,lng:10.45,icon:'🏰',lm:'Neuschwanstein'},
+  'South Africa':{lat:-30.56,lng:22.94,icon:'🦁',lm:'Table Mountain'},
+  'Canada':      {lat:56.13,lng:-106.35,icon:'🍁',lm:'CN Tower'},
+  'Mexico':      {lat:23.63,lng:-102.55,icon:'🌵',lm:'Chichen Itza'},
+  'Egypt':       {lat:26.82,lng:30.80,icon:'🏺',lm:'Pyramids of Giza'},
+  'Italy':       {lat:41.87,lng:12.57,icon:'🏛️',lm:'The Colosseum'},
+  'UAE':         {lat:23.42,lng:53.85,icon:'🌆',lm:'Burj Khalifa'},
+  'Singapore':   {lat:1.35,lng:103.82,icon:'🦁',lm:'Marina Bay Sands'},
+  'Argentina':   {lat:-38.42,lng:-63.62,icon:'🥩',lm:'Perito Moreno'},
+  'South Korea': {lat:35.91,lng:127.77,icon:'🎎',lm:'Gyeongbokgung'},
+  'Nigeria':     {lat:9.08,lng:8.68,icon:'🥁',lm:'Zuma Rock'},
+  'Spain':       {lat:40.46,lng:-3.75,icon:'🐂',lm:'Sagrada Familia'},
+  'Turkey':      {lat:38.96,lng:35.24,icon:'🕌',lm:'Hagia Sophia'},
+  'Indonesia':   {lat:-0.79,lng:113.92,icon:'🌋',lm:'Borobudur Temple'},
+};
+
+var worldGraph = buildGeoGraph(worldCities, 5);
+populateSelect('worldSrc', Object.keys(worldCities));
+populateSelect('worldDst', Object.keys(worldCities));
+
+var worldMap = L.map('worldMap', { center:[20,10], zoom:2, zoomControl:true, attributionControl:false });
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { maxZoom:18 }).addTo(worldMap);
+
+var wSrc='', wDst='', wStep=0;
+var wShortLayer=null, wNormLayer=null;
+var wMarkers={};
+
+function makeWIcon(name, hl) {
+  var c = worldCities[name];
+  var border = hl==='src'?'#00b4d8': hl==='dst'?'#ffd60a':'#1e2d4a';
+  var color  = hl==='src'?'#00b4d8': hl==='dst'?'#ffd60a':'#8899bb';
+  var glow   = hl ? 'box-shadow:0 0 12px '+border+'99;' : '';
+  return L.divIcon({
+    className:'',
+    html:'<div style="background:rgba(10,14,26,0.92);border:2px solid '+border+';border-radius:8px;padding:3px 7px;display:flex;align-items:center;gap:4px;white-space:nowrap;cursor:pointer;'+glow+'"><span style="font-size:13px">'+c.icon+'</span><span style="font-family:Inter,sans-serif;font-size:9px;color:'+color+';font-weight:500">'+name+'</span></div>',
+    iconAnchor:[34,16]
+  });
+}
+
+Object.keys(worldCities).forEach(function(name) {
+  var c = worldCities[name];
+  var m = L.marker([c.lat, c.lng], { icon: makeWIcon(name,'') }).addTo(worldMap);
+  m.bindTooltip('<b>'+name+'</b> — '+c.icon+' '+c.lm);
+  m.on('click', function() {
+    if (wStep===0) {
+      wSrc=name; document.getElementById('worldSrc').value=name;
+      wMarkers[name].setIcon(makeWIcon(name,'src')); wStep=1;
+    } else {
+      wDst=name; document.getElementById('worldDst').value=name;
+      wMarkers[name].setIcon(makeWIcon(name,'dst')); wStep=0; runWorld();
+    }
+  });
+  wMarkers[name]=m;
+});
+
+function runWorld() {
+  var src = document.getElementById('worldSrc').value;
+  var dst = document.getElementById('worldDst').value;
+  if (!src||!dst) { alert('Please select both countries.'); return; }
+  if (src===dst)  { alert('Source and destination must be different.'); return; }
+  wSrc=src; wDst=dst;
+  wMarkers[src].setIcon(makeWIcon(src,'src'));
+  wMarkers[dst].setIcon(makeWIcon(dst,'dst'));
+
+  var sh = dijkstra(worldGraph, src, dst);
+  var no = getAlternatePath(worldGraph, src, dst, worldCities);
+
+  if (wShortLayer) worldMap.removeLayer(wShortLayer);
+  if (wNormLayer)  worldMap.removeLayer(wNormLayer);
+
+  if (no.path.length>1) wNormLayer = L.polyline(no.path.map(function(n){return[worldCities[n].lat,worldCities[n].lng];}),{color:'#f72585',weight:3.5,opacity:.8,dashArray:'8 5'}).addTo(worldMap);
+  if (sh.path.length>1) wShortLayer= L.polyline(sh.path.map(function(n){return[worldCities[n].lat,worldCities[n].lng];}),{color:'#00e5a0',weight:5,opacity:.9}).addTo(worldMap);
+
+  showResults('worldResults', sh, no);
+  if (sh.path.length>1) worldMap.fitBounds(sh.path.map(function(n){return[worldCities[n].lat,worldCities[n].lng];}),{padding:[50,50]});
+}
+
+/* ===============================================================
+   ALGO ANIMATION
+   =============================================================== */
+function animateAlgoSteps() {
+  var items = document.querySelectorAll('#algoStepList .step-item');
+  items.forEach(function(i) { i.classList.remove('active'); });
+  var idx = 0;
+  function next() {
+    if (idx > 0) items[idx-1].classList.remove('active');
+    if (idx < items.length) {
+      items[idx].classList.add('active');
+      items[idx].scrollIntoView({ behavior:'smooth', block:'nearest' });
+      idx++;
+      setTimeout(next, 900);
+    }
+  }
+  next();
+}
+
+/* Nav scroll highlight */
+var sections = ['hero','campus','india','world','significance'];
+var navLinks = document.querySelectorAll('.nav-link');
+window.addEventListener('scroll', function() {
+  var current = '';
+  sections.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el && window.scrollY >= el.offsetTop - 120) current = id;
+  });
+  navLinks.forEach(function(l, i) {
+    l.classList.toggle('active', sections[i] === current);
+  });
+}, { passive:true });
+</script>
+</body>
+</html>
