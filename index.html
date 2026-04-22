@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vantello — Elevate Every Bathroom</title>
+  <meta name="description" content="Vantello is a premium bathroom brand offering quartz kitchen sinks, bath accessories, and complete bathroom solutions for modern luxury living."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- ================================================================
+     NAVBAR — 5 pages: Home / Quartz Sinks / Bath Accessories / About / Contact
+     Always overlays hero (transparent), darkens on scroll
+     ================================================================ -->
+<nav id="navbar" class="at-top">
+  <div class="nav-in">
+    <a class="nav-logo" onclick="navigate('home')">Vantello<span class="nav-logo-dot">.</span></a>
+    <ul class="nav-links">
+      <li><a onclick="navigate('quartz')"  id="nl-quartz">Quartz Sinks</a></li>
+      <li><a onclick="navigate('bath')"    id="nl-bath">Bath Accessories</a></li>
+      <li><a onclick="navigate('about')"   id="nl-about">About</a></li>
+      <li><a onclick="navigate('contact')" id="nl-contact">Contact</a></li>
+    </ul>
+    <a class="nav-cta" onclick="navigate('contact')">Get a Quote</a>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mob-menu" id="mobMenu">
+    <a onclick="navigate('quartz');closeMob()">Quartz Sinks</a>
+    <a onclick="navigate('bath');closeMob()">Bath Accessories</a>
+    <a onclick="navigate('about');closeMob()">About</a>
+    <a onclick="navigate('contact');closeMob()">Contact</a>
+    <button class="mob-cta" onclick="navigate('contact');closeMob()">Get a Quote</button>
+  </div>
+</nav>
+
+
+<!-- ================================================================
+     PAGE: HOME — Brand-first luxury homepage
+     ================================================================ -->
+<div class="page active" id="page-home">
+
+  <!-- 1. HERO ─────────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-bg">
+      <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1800&q=85"
+           alt="Luxury bathroom — Vantello"/>
+    </div>
+    <div class="hero-content">
+      <span class="hero-eyebrow">Premium Bathroom Brand — Est. India</span>
+      <h1 class="hero-h1">Elevate<br/><em>Every</em><br/>Bathroom.</h1>
+      <p class="hero-tagline">Premium bathroom solutions crafted for modern luxury living. Precision-engineered, beautifully finished, built to endure.</p>
+      <div class="hero-btns">
+        <button class="btn btn-primary" onclick="navigate('quartz')"><span>Explore Products</span></button>
+        <button class="btn btn-outline" onclick="navigate('contact')">For Dealers &amp; Distributors</button>
+      </div>
+    </div>
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- MARQUEE ─────────────────────────────────────────────── -->
+  <div class="marquee">
+    <div class="m-track">
+      <span>Anti-Rust Technology</span><span class="dot">·</span>
+      <span>Premium Build Quality</span><span class="dot">·</span>
+      <span>No Sharp Edges</span><span class="dot">·</span>
+      <span>Smart Drain Design</span><span class="dot">·</span>
+      <span>Easy Maintenance</span><span class="dot">·</span>
+      <span>Modern Aesthetics</span><span class="dot">·</span>
+      <span>10 Year Warranty</span><span class="dot">·</span>
+      <span>Bathroom in One Box</span><span class="dot">·</span>
+      <span>Anti-Rust Technology</span><span class="dot">·</span>
+      <span>Premium Build Quality</span><span class="dot">·</span>
+      <span>No Sharp Edges</span><span class="dot">·</span>
+      <span>Smart Drain Design</span><span class="dot">·</span>
+      <span>Easy Maintenance</span><span class="dot">·</span>
+      <span>Modern Aesthetics</span><span class="dot">·</span>
+      <span>10 Year Warranty</span><span class="dot">·</span>
+      <span>Bathroom in One Box</span><span class="dot">·</span>
+    </div>
+  </div>
+
+  <!-- 2. BRAND INTRO ──────────────────────────────────────── -->
+  <section class="brand-intro">
+    <div class="wrap">
+      <div class="bi-grid rv">
+        <div class="bi-label">Our Positioning</div>
+        <div class="bi-text">
+          <p>Vantello is not just a product company — it is a design-driven brand focused on elevating everyday spaces through precision, durability, and aesthetics.</p>
+          <a class="tlink" onclick="navigate('about')">Our Story →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. PRODUCT CATEGORIES ──────────────────────────────── -->
+  <section class="categories">
+    <div class="wrap">
+      <div class="sh rv">
+        <span class="eyebrow">Our Products</span>
+        <h2>Two Categories.<br/><em>One Standard.</em></h2>
+        <p>Every Vantello product is engineered to the same uncompromising specification — regardless of category.</p>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <div class="cat-grid">
+
+        <!-- Category: Quartz Sinks -->
+        <div class="cat-card rv" onclick="navigate('quartz')">
+          <div class="cat-card-img">
+            <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=900&q=85"
+                 alt="Vantello Quartz Kitchen Sinks" loading="lazy"/>
+          </div>
+          <div class="cat-card-body">
+            <div class="cat-card-tag">Product Category 01</div>
+            <div class="cat-card-name">Quartz<br/>Kitchen Sinks</div>
+            <p class="cat-card-desc">12 exclusive series. High-density quartz composite. Metallic &amp; Granite finishes. 8+ colour options.</p>
+            <div class="cat-card-arrow">Explore Sinks</div>
+          </div>
+        </div>
+
+        <!-- Category: Bath Accessories -->
+        <div class="cat-card rv" onclick="navigate('bath')">
+          <div class="cat-card-img">
+            <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=900&q=85"
+                 alt="Vantello Bath Accessories" loading="lazy"/>
+          </div>
+          <div class="cat-card-body">
+            <div class="cat-card-tag">Product Category 02</div>
+            <div class="cat-card-name">Bath<br/>Accessories</div>
+            <p class="cat-card-desc">Complete bathroom systems — showers, health faucets, drains, soap dispensers, holders, and more.</p>
+            <div class="cat-card-arrow">Explore Accessories</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. WHY VANTELLO ─────────────────────────────────────── -->
+  <section class="why">
+    <div class="wrap">
+      <div class="sh rv">
+        <span class="eyebrow">Why Vantello</span>
+        <h2>Built Different.<br/><em>By Design.</em></h2>
+        <p>Six principles that define every product we make — from the first sketch to the final finish.</p>
+      </div>
+      <div class="why-grid">
+
+        <div class="why-card rv">
+          <div class="why-icon">
+            <svg viewBox="0 0 48 48" fill="none">
+              <path d="M24 6l18 9v12c0 10-8 18-18 21C14 45 6 37 6 27V15l18-9z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M16 24l6 6 10-10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3>Anti-Rust Technology</h3>
+          <p>Every metal component is treated with advanced anti-corrosion coating — engineered to last decades even in humid bathroom environments.</p>
+        </div>
+
+        <div class="why-card rv">
+          <div class="why-icon">
+            <svg viewBox="0 0 48 48" fill="none">
+              <path d="M24 8L32 16L24 24L16 16L24 8Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M8 24L16 32L8 40M40 24L32 32L40 40" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M16 32L24 40L32 32" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3>Premium Build Quality</h3>
+          <p>Precision-engineered from materials that look and feel expensive — because they are. No shortcuts, no compromises, no visible joins.</p>
+        </div>
+
+        <div class="why-card rv">
+          <div class="why-icon">
+            <svg viewBox="0 0 48 48" fill="none">
+              <circle cx="24" cy="30" r="10" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M24 20V10M18 14l6-6 6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="24" cy="30" r="4" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <h3>Smart Drain Design</h3>
+          <p>Proprietary drainage geometry ensures zero standing water and effortless cleaning — a detail most brands never think about.</p>
+        </div>
+
+        <div class="why-card rv">
+          <div class="why-icon">
+            <svg viewBox="0 0 48 48" fill="none">
+              <path d="M12 24h24M12 32h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <rect x="8" y="12" width="32" height="26" rx="4" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M20 12V8M28 12V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>No Sharp Edges</h3>
+          <p>Every radius, every corner, every edge is hand-finished for safety and tactile refinement. The difference is felt before it is seen.</p>
+        </div>
+
+        <div class="why-card rv">
+          <div class="why-icon">
+            <svg viewBox="0 0 48 48" fill="none">
+              <path d="M24 10C24 10 14 22 14 30a10 10 0 0020 0C34 22 24 10 24 10Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M18 36q6 4 12 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>Easy Maintenance</h3>
+          <p>Non-porous surfaces and corrosion-resistant finishes mean less cleaning time, fewer products, and surfaces that look new for years.</p>
+        </div>
+
+        <div class="why-card rv">
+          <div class="why-icon">
+            <svg viewBox="0 0 48 48" fill="none">
+              <rect x="8" y="8" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/>
+              <rect x="26" y="8" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/>
+              <rect x="8" y="26" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/>
+              <rect x="26" y="26" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <h3>Modern Aesthetics</h3>
+          <p>Designed to complement premium interiors. Clean lines, restrained geometry, and a matte finish language that never dates.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. BATHROOM IN ONE BOX ──────────────────────────────── -->
+  <section class="biob">
+    <div class="biob-bg">
+      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=80" alt="" loading="lazy"/>
+    </div>
+    <div class="biob-inner">
+      <div class="rv">
+        <div class="biob-badge"><span>Signature Offering</span></div>
+        <h2 class="biob-h2">Bathroom<br/><em>in One Box.</em></h2>
+        <p class="biob-p">Everything you need for a complete, premium bathroom — curated, matched, and delivered together. No hunting for compatible pieces across 12 different brands.</p>
+        <div class="biob-bullets">
+          <div class="biob-bullet">Perfectly matched finishes across every fitting</div>
+          <div class="biob-bullet">Quartz sink + accessories in one purchase</div>
+          <div class="biob-bullet">Perfect for builders, bulk buyers, and quick installations</div>
+          <div class="biob-bullet">Dramatically reduced project timeline</div>
+        </div>
+        <button class="btn btn-outline" onclick="navigate('contact')"><span>Enquire About Bulk Orders</span></button>
+      </div>
+      <div class="biob-img rv">
+        <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=700&q=85" alt="Complete Vantello bathroom" loading="lazy"/>
+        <div class="biob-img-caption">Complete Vantello Bathroom System</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS ───────────────────────────────────────────────── -->
+  <section class="stats">
+    <div class="wrap">
+      <div class="stats-g">
+        <div class="stat-item rv">
+          <div class="stat-n" data-count="12" data-suffix="">12</div>
+          <div class="stat-l">Sink Series</div>
+        </div>
+        <div class="stat-div"></div>
+        <div class="stat-item rv">
+          <div class="stat-n" data-count="50" data-suffix="+">50+</div>
+          <div class="stat-l">Accessory SKUs</div>
+        </div>
+        <div class="stat-div"></div>
+        <div class="stat-item rv">
+          <div class="stat-n">10yr</div>
+          <div class="stat-l">Warranty</div>
+        </div>
+        <div class="stat-div"></div>
+        <div class="stat-item rv">
+          <div class="stat-n" data-count="8" data-suffix="+">8+</div>
+          <div class="stat-l">Colour Options</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. DEALER / DISTRIBUTOR SECTION ────────────────────── -->
+  <section class="dealer">
+    <div class="wrap">
+      <div class="dealer-inner">
+        <div class="dealer-txt">
+          <div class="sh rv">
+            <span class="eyebrow">Trade &amp; Distribution</span>
+            <h2>Partner With<br/><em>Vantello.</em></h2>
+          </div>
+          <p class="rv">Designed for dealers, distributors, and builders looking for premium bathroom solutions with strong margins and reliable quality. We don't just supply products — we build long-term partnerships.</p>
+          <div class="dealer-perks rv">
+            <div class="dealer-perk">
+              <div class="dealer-perk-n">01</div>
+              <div>
+                <strong>Strong Dealer Margins</strong>
+                Competitive pricing structure designed for healthy trade margins and consistent repeat business.
+              </div>
+            </div>
+            <div class="dealer-perk">
+              <div class="dealer-perk-n">02</div>
+              <div>
+                <strong>Ready Stock &amp; Fast Dispatch</strong>
+                No waiting weeks for inventory. Our stock-ready model keeps your projects moving.
+              </div>
+            </div>
+            <div class="dealer-perk">
+              <div class="dealer-perk-n">03</div>
+              <div>
+                <strong>Marketing &amp; Display Support</strong>
+                Catalogues, display units, and brand materials provided to Vantello-authorised partners.
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-primary rv" onclick="navigate('contact')"><span>Become a Partner</span></button>
+        </div>
+        <div class="dealer-img rv">
+          <img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=700&q=85" alt="Vantello dealer partnership" loading="lazy"/>
+          <div class="dealer-img-badge">
+            <div class="dealer-img-badge-n">500+</div>
+            <div class="dealer-img-badge-l">Partner Network</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIAL ─────────────────────────────────────────── -->
+  <section class="testimonial">
+    <div class="test-in rv">
+      <div class="test-q">"</div>
+      <blockquote>Vantello completely transformed the feel of our project. It's not just a sink or a tap — it's a cohesive design statement that our clients immediately notice and ask about.</blockquote>
+      <div class="test-auth">
+        <div class="nm">Priya Mehta</div>
+        <div class="rl">Interior Architect, Mumbai</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA ───────────────────────────────────────────── -->
+  <section class="fcta">
+    <div class="fcta-in">
+      <div class="fcta-bg">
+        <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1600&q=70" alt=""/>
+        <div class="fcta-ov"></div>
+      </div>
+      <div class="fcta-cnt rv">
+        <span class="eyebrow lt">Ready to Elevate?</span>
+        <h2>Where Would You Like<br/><em>Vantello to Begin?</em></h2>
+        <div class="fcta-btns">
+          <button class="btn btn-primary" onclick="navigate('quartz')"><span>Quartz Sinks</span></button>
+          <button class="btn btn-primary" onclick="navigate('bath')"><span>Bath Accessories</span></button>
+          <button class="btn btn-outline" onclick="navigate('contact')">Talk to an Expert</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER ──────────────────────────────────────────────── -->
+  <footer>
+    <div class="wrap">
+      <div class="ft-top">
+        <div class="ft-brand">
+          <span class="ft-logo">Vantello<em>.</em></span>
+          <p class="ft-tagline">Elevate Every Bathroom.</p>
+          <p>Premium bathroom brand. Precision-engineered in India for modern luxury living.</p>
+        </div>
+        <div class="ft-links">
+          <div class="ft-col">
+            <h4>Products</h4>
+            <a onclick="navigate('quartz')">Quartz Sinks</a>
+            <a onclick="navigate('bath')">Bath Accessories</a>
+            <a onclick="navigate('contact')">Bathroom in One Box</a>
+          </div>
+          <div class="ft-col">
+            <h4>Company</h4>
+            <a onclick="navigate('about')">About Vantello</a>
+            <a onclick="navigate('contact')">Dealer Programme</a>
+            <a onclick="navigate('contact')">Contact</a>
+          </div>
+          <div class="ft-col">
+            <h4>Contact</h4>
+            <a href="mailto:hello@vantello.in">hello@vantello.in</a>
+            <a href="tel:+919000000000">+91 90000 00000</a>
+            <a href="https://wa.me/919000000000" target="_blank">WhatsApp Us</a>
+          </div>
+        </div>
+      </div>
+      <div class="ft-bot">
+        <span>© 2026 Vantello. All rights reserved.</span>
+        <span>"Elevate Every Bathroom."</span>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- /page-home -->
+
+
+<!-- ================================================================
+     PAGE: QUARTZ SINKS (refined from previous collection page)
+     ================================================================ -->
+<div class="page" id="page-quartz">
+
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="page-hero-c rv">
+        <span class="eyebrow lt">Product Category 01</span>
+        <h1>Quartz Kitchen<br/><em>Sinks</em></h1>
+        <p>12 exclusive series. Crafted in high-density quartz composite across single bowl, double bowl, and drainer formats — each in 8+ colour options across Metallic and Granite finishes.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="filter-bar">
+    <div class="wrap">
+      <div class="filters">
+        <button class="f-btn active" data-filter="all">All Series</button>
+        <button class="f-btn" data-filter="single">Single Bowl</button>
+        <button class="f-btn" data-filter="double">Double Bowl</button>
+        <button class="f-btn" data-filter="drainer">With Drainer</button>
+      </div>
+    </div>
+  </div>
+
+  <section class="prod-section">
+    <div class="wrap">
+      <div class="prod-grid">
+
+        <div class="prod-card rv" data-cat="single" onclick="navigate('product','marvel')">
+          <div class="prod-img-w">
+            <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=700&q=80" alt="Marvel Series" loading="lazy"/>
+            <div class="prod-ov"><span>View Details</span></div>
+          </div>
+          <div class="prod-info">
+            <div class="prod-ser">Marvel Series</div>
+            <h3 class="prod-nm">Marvel Black</h3>
+            <p class="prod-desc">Single bowl. 24×18 in. The flagship in 8 finishes.</p>
+            <div class="prod-tags"><span>Single Bowl</span><span>Soundproof</span><span>Undermount</span></div>
+          </div>
+        </div>
+
+        <div class="prod-card rv" data-cat="single" onclick="navigate('product','crystal')">
+          <div class="prod-img-w">
+            <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=700&q=80" alt="Crystal Series" loading="lazy"/>
+            <div class="prod-ov"><span>View Details</span></div>
+          </div>
+          <div class="prod-info">
+            <div class="prod-ser">Crystal Series</div>
+            <h3 class="prod-nm">Crystal Grey</h3>
+            <p class="prod-desc">Single bowl. 21×18 in. Compact precision for modern kitchens.</p>
+            <div class="prod-tags"><span>Single Bowl</span><span>Compact</span></div>
+          </div>
+        </div>
+
+        <div class="prod-card rv" data-cat="single" onclick="navigate('product','pearl')">
+          <div class="prod-img-w">
+            <img src="https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=700&q=80" alt="Pearl Series" loading="lazy"/>
+            <div class="prod-ov"><span>View Details</span></div>
+          </div>
+          <div class="prod-info">
+            <div class="prod-ser">Pearl Series</div>
+            <h3 class="prod-nm">Pearl Brown</h3>
+            <p class="prod-desc">Single bowl. 18×16 in. Compact powerhouse for smaller spaces.</p>
+            <div class="prod-tags"><span>Single Bowl</span><span>Compact</span></div>
+          </div>
+        </div>
+
+        <div class="prod-card rv" data-cat="drainer" onclick="navigate('product','imperial')">
+          <div class="prod-img-w">
+            <img src="https://images.unsplash.com/photo-1556909190-eccf4a8bf97a?w=700&q=80" alt="Imperial Series" loading="lazy"/>
+            <div class="prod-ov"><span>View Details</span></div>
+          </div>
+          <div class="prod-info">
+            <div class="prod-ser">Imperial Series</div>
+            <h3 class="prod-nm">Imperial White</h3>
+            <p class="prod-desc">Single + drainer. 36×18 in. Classic form, modern performance.</p>
+            <div class="prod-tags"><span>With Drainer</span><span>Single Bowl</span></div>
+          </div>
+        </div>
+
+        <div class="prod-card rv" data-cat="drainer" onclick="navigate('product','fortune')">
+          <div class="prod-img-w">
+            <img src="https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=700&q=80" alt="Fortune Series" loading="lazy"/>
+            <div class="prod-ov"><span>View Details</span></div>
+          </div>
+          <div class="prod-info">
+            <div class="prod-ser">Fortune Series</div>
+            <h3 class="prod-nm">Fortune Brown</h3>
+            <p class="prod-desc">Single + drainer. 36×18 in. Built for the busy family kitchen.</p>
+            <div class="prod-tags"><span>With Drainer</span><span>Single Bowl</span></div>
+          </div>
+        </div>
+
+        <div class="prod-card rv" data-cat="single" onclick="navigate('product','crystal')">
+          <div class="prod-img-w">
+            <img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=700&q=80" alt="Fusion Series" loading="lazy"/>
+            <div class="prod-ov"><span>View Details</span></div>
+          </div>
+          <div class="prod-info">
+            <div class="prod-ser">Fusion Series</div>
+            <h3 class="prod-nm">Fusion White</h3>
+            <p class="prod-desc">Single bowl. 31×19 in. Wide format with generous depth.</p>
+            <div class="prod-tags"><span>Single Bowl</span><span>Wide Format</span></div>
+          </div>
+        </div>
+
+        <div class="prod-card rv" data-cat="single" onclick="navigate('product','crystal')">
+          <div class="prod-img-w">
+            <img src="https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?w=700&q=80" alt="Galaxy Series" loading="lazy"/>
+            <div class="prod-ov"><span>View Details</span></div>
+          </div>
+          <div class="prod-info">
+            <div class="prod-ser">Galaxy Series</div>
+            <h3 class="prod-nm">Galaxy Grey</h3>
+            <p class="prod-desc">Single bowl. 30×20 in. Clean lines, precision geometry.</p>
+            <div class="prod-tags"><span>Single Bowl</span><span>Modern</span></div>
+          </div>
+        </div>
+
+        <div class="prod-card rv" data-cat="double" onclick="navigate('product','matrix')">
+          <div class="prod-img-w">
+            <img src="https://images.unsplash.com/photo-1556909172-89cf0b43e8c0?w=700&q=80" alt="Matrix Series" loading="lazy"/>
+            <div class="prod-ov"><span>View Details</span></div>
+          </div>
+          <div class="prod-info">
+            <div class="prod-ser">Matrix Series</div>
+            <h3 class="prod-nm">Matrix Almond</h3>
+            <p class="prod-desc">Double bowl. 37×18 in. Two bowls, one vision.</p>
+            <div class="prod-tags"><span>Double Bowl</span><span>Soundproof</span></div>
+          </div>
+        </div>
+
+        <div class="prod-card rv" data-cat="drainer" onclick="navigate('product','imperial')">
+          <div class="prod-img-w">
+            <img src="https://images.unsplash.com/photo-1543992321-cbe3e97d85dc?w=700&q=80" alt="Prada Series" loading="lazy"/>
+            <div class="prod-ov"><span>View Details</span></div>
+          </div>
+          <div class="prod-info">
+            <div class="prod-ser">Prada Series</div>
+            <h3 class="prod-nm">Prada Silver</h3>
+            <p class="prod-desc">Single + drainer. 40×20 in. Generous workspace, refined edge.</p>
+            <div class="prod-tags"><span>With Drainer</span><span>Large Format</span></div>
+          </div>
+        </div>
+
+        <div class="prod-card rv" data-cat="double" onclick="navigate('product','royal')">
+          <div class="prod-img-w">
+            <img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?w=700&q=80" alt="Thar Series" loading="lazy"/>
+            <div class="prod-ov"><span>View Details</span></div>
+          </div>
+          <div class="prod-info">
+            <div class="prod-ser">Thar Series</div>
+            <h3 class="prod-nm">Thar Almond</h3>
+            <p class="prod-desc">Double bowl. 40×20 in. Dual-bowl crafted for serious cooking.</p>
+            <div class="prod-tags"><span>Double Bowl</span><span>Large Format</span></div>
+          </div>
+        </div>
+
+        <div class="prod-card rv" data-cat="double" onclick="navigate('product','rock')">
+          <div class="prod-img-w">
+            <img src="https://images.unsplash.com/photo-1556909190-eccf4a8bf97a?w=700&q=80" alt="Rock Series" loading="lazy"/>
+            <div class="prod-ov"><span>View Details</span></div>
+          </div>
+          <div class="prod-info">
+            <div class="prod-ser">Rock Series</div>
+            <h3 class="prod-nm">Rock White</h3>
+            <p class="prod-desc">Double bowl. 45×20 in. Maximum workspace for the serious kitchen.</p>
+            <div class="prod-tags"><span>Double Bowl</span><span>XL Format</span></div>
+          </div>
+        </div>
+
+        <div class="prod-card rv" data-cat="double" onclick="navigate('product','royal')">
+          <div class="prod-img-w">
+            <img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=700&q=80" alt="Royal Series" loading="lazy"/>
+            <div class="prod-ov"><span>View Details</span></div>
+          </div>
+          <div class="prod-info">
+            <div class="prod-ser">Royal Series</div>
+            <h3 class="prod-nm">Royal White</h3>
+            <p class="prod-desc">Double bowl. 45×20 in. The statement sink for premium kitchens.</p>
+            <div class="prod-tags"><span>Double Bowl</span><span>XL Format</span><span>Bestseller</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="col-cta">
+    <div class="wrap">
+      <div class="col-cta-in rv">
+        <h2>Can't decide?<br/><em>Let us help.</em></h2>
+        <p>Our team will match you with the right series for your kitchen — size, colour, finish and all. No obligation.</p>
+        <button class="btn btn-primary" onclick="navigate('contact')"><span>Talk to an Expert</span></button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <div class="ft-top">
+        <div class="ft-brand">
+          <span class="ft-logo">Vantello<em>.</em></span>
+          <p class="ft-tagline">Elevate Every Bathroom.</p>
+          <p>Premium bathroom brand. Precision-engineered in India.</p>
+        </div>
+        <div class="ft-links">
+          <div class="ft-col"><h4>Products</h4><a onclick="navigate('quartz')">Quartz Sinks</a><a onclick="navigate('bath')">Bath Accessories</a></div>
+          <div class="ft-col"><h4>Company</h4><a onclick="navigate('about')">About</a><a onclick="navigate('contact')">Contact</a></div>
+          <div class="ft-col"><h4>Contact</h4><a href="mailto:hello@vantello.in">hello@vantello.in</a><a href="tel:+919000000000">+91 90000 00000</a></div>
+        </div>
+      </div>
+      <div class="ft-bot"><span>© 2026 Vantello. All rights reserved.</span><span>"Elevate Every Bathroom."</span></div>
+    </div>
+  </footer>
+
+</div><!-- /page-quartz -->
+
+
+<!-- ================================================================
+     PAGE: BATH ACCESSORIES — NEW PAGE
+     ================================================================ -->
+<div class="page" id="page-bath">
+
+  <section class="ba-hero">
+    <div class="wrap">
+      <div class="rv">
+        <span class="eyebrow lt">Product Category 02</span>
+        <h1>Bath<br/><em>Accessories</em></h1>
+        <p>A complete system of premium bathroom fittings. Every piece designed to the same Vantello standard — finishing off your bathroom the way it deserves.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category filter -->
+  <div class="ba-cats">
+    <div class="wrap">
+      <div class="ba-cats-inner">
+        <button class="ba-cat-btn active" data-cat="all">All</button>
+        <button class="ba-cat-btn" data-cat="shower">Showers</button>
+        <button class="ba-cat-btn" data-cat="faucet">Health Faucets</button>
+        <button class="ba-cat-btn" data-cat="drain">Drain Systems</button>
+        <button class="ba-cat-btn" data-cat="holder">Holders &amp; Storage</button>
+      </div>
+    </div>
+  </div>
+
+  <section class="ba-section">
+    <div class="wrap">
+
+      <!-- SHOWERS ──────────── -->
+      <div class="ba-section-group" data-group="shower">
+        <div class="ba-category-label">Showers</div>
+        <div class="ba-grid">
+          <div class="ba-card rv">
+            <div class="ba-card-img"><img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=500&q=80" alt="Rain Shower Head" loading="lazy"/></div>
+            <div class="ba-card-info">
+              <div class="ba-card-cat">Showers</div>
+              <div class="ba-card-name">Rain Shower Head</div>
+              <p class="ba-card-desc">304 SS body. 250mm overhead. Silky flow experience.</p>
+            </div>
+          </div>
+          <div class="ba-card rv">
+            <div class="ba-card-img"><img src="https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=500&q=80" alt="Hand Shower Set" loading="lazy"/></div>
+            <div class="ba-card-info">
+              <div class="ba-card-cat">Showers</div>
+              <div class="ba-card-name">Hand Shower Set</div>
+              <p class="ba-card-desc">3-function. ABS body with chrome finish. 1.5m hose included.</p>
+            </div>
+          </div>
+          <div class="ba-card rv">
+            <div class="ba-card-img"><img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=500&q=80" alt="Shower Panel" loading="lazy"/></div>
+            <div class="ba-card-info">
+              <div class="ba-card-cat">Showers</div>
+              <div class="ba-card-name">Shower Panel System</div>
+              <p class="ba-card-desc">Rain + body jets + hand shower. All-in-one thermostatic panel.</p>
+            </div>
+          </div>
+          <div class="ba-card rv">
+            <div class="ba-card-img"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=500&q=80" alt="Concealed Shower" loading="lazy"/></div>
+            <div class="ba-card-info">
+              <div class="ba-card-cat">Showers</div>
+              <div class="ba-card-name">Concealed Diverter</div>
+              <p class="ba-card-desc">In-wall concealed unit. Compatible with all Vantello shower sets.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HEALTH FAUCETS ───── -->
+      <div class="ba-section-group" data-group="faucet">
+        <div class="ba-category-label">Health Faucets</div>
+        <div class="ba-grid">
+          <div class="ba-card rv">
+            <div class="ba-card-img"><img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500&q=80" alt="Health Faucet" loading="lazy"/></div>
+            <div class="ba-card-info">
+              <div class="ba-card-cat">Health Faucets</div>
+              <div class="ba-card-name">Premium Health Faucet</div>
+              <p class="ba-card-desc">Anti-burst PP flexible hose. Chrome finish. PTFE sealing.</p>
+            </div>
+          </div>
+          <div class="ba-card rv">
+            <div class="ba-card-img"><img src="https://images.unsplash.com/photo-1556909190-eccf4a8bf97a?w=500&q=80" alt="Health Faucet Gold" loading="lazy"/></div>
+            <div class="ba-card-info">
+              <div class="ba-card-cat">Health Faucets</div>
+              <div class="ba-card-name">Health Faucet — Gold</div>
+              <p class="ba-card-desc">PVD gold finish. Brushed texture. Anti-rust guarantee.</p>
+            </div>
+          </div>
+          <div class="ba-card rv">
+            <div class="ba-card-img"><img src="https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=500&q=80" alt="Health Faucet Matte" loading="lazy"/></div>
+            <div class="ba-card-info">
+              <div class="ba-card-cat">Health Faucets</div>
+              <div class="ba-card-name">Health Faucet — Matte Black</div>
+              <p class="ba-card-desc">Powder-coated matte black. Modern bathrooms only.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DRAIN SYSTEMS ─────── -->
+      <div class="ba-section-group" data-group="drain">
+        <div class="ba-category-label">Drain Systems</div>
+        <div class="ba-grid">
+          <div class="ba-card rv">
+            <div class="ba-card-img"><img src="https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?w=500&q=80" alt="Floor Drain" loading="lazy"/></div>
+            <div class="ba-card-info">
+              <div class="ba-card-cat">Drain Systems</div>
+              <div class="ba-card-name">Slim Floor Drain</div>
+              <p class="ba-card-desc">10mm profile. 304 SS. Anti-odour water seal trap.</p>
+            </div>
+          </div>
+          <div class="ba-card rv">
+            <div class="ba-card-img"><img src="https://images.unsplash.com/photo-1543992321-cbe3e97d85dc?w=500&q=80" alt="Linear Drain" loading="lazy"/></div>
+            <div class="ba-card-info">
+              <div class="ba-card-cat">Drain Systems</div>
+              <div class="ba-card-name">Linear Channel Drain</div>
+              <p class="ba-card-desc">600mm tile-insert cover. Concealed installation. Hairline-filter.</p>
+            </div>
+          </div>
+          <div class="ba-card rv">
+            <div class="ba-card-img"><img src="https://images.unsplash.com/photo-1556909172-89cf0b43e8c0?w=500&q=80" alt="Balcony Drain" loading="lazy"/></div>
+            <div class="ba-card-info">
+              <div class="ba-card-cat">Drain Systems</div>
+              <div class="ba-card-name">Balcony Drain</div>
+              <p class="ba-card-desc">UV-stable. 110mm outlet. High-flow design for outdoor use.</p>
+            </div>
+          </div>
+          <div class="ba-card rv">
+            <div class="ba-card-img"><img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?w=500&q=80" alt="Shower Drain" loading="lazy"/></div>
+            <div class="ba-card-info">
+              <div class="ba-card-cat">Drain Systems</div>
+              <div class="ba-card-name">Square Shower Drain</div>
+              <p class="ba-card-desc">100×100mm. Anti-rust. Available in chrome and matte black.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HOLDERS & STORAGE ── -->
+      <div class="ba-section-group" data-group="holder">
+        <div class="ba-category-label">Holders &amp; Storage</div>
+        <div class="ba-grid">
+          <div class="ba-card rv">
+            <div class="ba-card-img"><img src="https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=500&q=80" alt="Soap Dispenser" loading="lazy"/></div>
+            <div class="ba-card-info">
+              <div class="ba-card-cat">Holders &amp; Storage</div>
+              <div class="ba-card-name">Wall Soap Dispenser</div>
+              <p class="ba-card-desc">300ml capacity. Press-top mechanism. Chrome &amp; matte finish.</p>
+            </div>
+          </div>
+          <div class="ba-card rv">
+            <div class="ba-card-img"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=500&q=80" alt="Towel Ring" loading="lazy"/></div>
+            <div class="ba-card-info">
+              <div class="ba-card-cat">Holders &amp; Storage</div>
+              <div class="ba-card-name">Towel Ring</div>
+              <p class="ba-card-desc">Solid brass core. Chrome PVD finish. Anti-tarnish guaranteed.</p>
+            </div>
+          </div>
+          <div class="ba-card rv">
+            <div class="ba-card-img"><img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=500&q=80" alt="Toothbrush Holder" loading="lazy"/></div>
+            <div class="ba-card-info">
+              <div class="ba-card-cat">Holders &amp; Storage</div>
+              <div class="ba-card-name">Toothbrush Holder</div>
+              <p class="ba-card-desc">4-slot ceramic-lined holder. Matching finish range available.</p>
+            </div>
+          </div>
+          <div class="ba-card rv">
+            <div class="ba-card-img"><img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=500&q=80" alt="Toilet Paper Holder" loading="lazy"/></div>
+            <div class="ba-card-info">
+              <div class="ba-card-cat">Holders &amp; Storage</div>
+              <div class="ba-card-name">Toilet Paper Holder</div>
+              <p class="ba-card-desc">Integrated cover. No-tool installation. Matching 10-piece set available.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /wrap -->
+  </section>
+
+  <!-- Accessory feature strip -->
+  <div class="ba-strip">
+    <div class="ba-strip-item">
+      <div class="ba-strip-icon">🛡️</div>
+      <div class="ba-strip-t">Anti-Rust Guarantee</div>
+      <div class="ba-strip-s">All metal components treated for long-term corrosion resistance.</div>
+    </div>
+    <div class="ba-strip-item">
+      <div class="ba-strip-icon">✦</div>
+      <div class="ba-strip-t">No Sharp Edges</div>
+      <div class="ba-strip-s">Every radius hand-finished for safety and tactile quality.</div>
+    </div>
+    <div class="ba-strip-item">
+      <div class="ba-strip-icon">◈</div>
+      <div class="ba-strip-t">Matched Finish Ranges</div>
+      <div class="ba-strip-s">Buy individual pieces or order a complete matched-finish set.</div>
+    </div>
+    <div class="ba-strip-item">
+      <div class="ba-strip-icon">∞</div>
+      <div class="ba-strip-t">Replacement Guarantee</div>
+      <div class="ba-strip-s">Vantello accessories carry a 2-year replacement assurance.</div>
+    </div>
+  </div>
+
+  <div class="col-cta">
+    <div class="wrap">
+      <div class="col-cta-in rv">
+        <h2>Complete Your<br/><em>Bathroom.</em></h2>
+        <p>Ask about our Bathroom-in-One-Box packages — everything matched, everything premium, everything Vantello.</p>
+        <button class="btn btn-primary" onclick="navigate('contact')"><span>Enquire Now</span></button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <div class="ft-top">
+        <div class="ft-brand"><span class="ft-logo">Vantello<em>.</em></span><p class="ft-tagline">Elevate Every Bathroom.</p><p>Premium bathroom brand. Precision-engineered in India.</p></div>
+        <div class="ft-links">
+          <div class="ft-col"><h4>Products</h4><a onclick="navigate('quartz')">Quartz Sinks</a><a onclick="navigate('bath')">Bath Accessories</a></div>
+          <div class="ft-col"><h4>Company</h4><a onclick="navigate('about')">About</a><a onclick="navigate('contact')">Contact</a></div>
+          <div class="ft-col"><h4>Contact</h4><a href="mailto:hello@vantello.in">hello@vantello.in</a><a href="tel:+919000000000">+91 90000 00000</a></div>
+        </div>
+      </div>
+      <div class="ft-bot"><span>© 2026 Vantello. All rights reserved.</span><span>"Elevate Every Bathroom."</span></div>
+    </div>
+  </footer>
+
+</div><!-- /page-bath -->
+
+
+<!-- ================================================================
+     PAGE: PRODUCT DETAIL (unchanged functionality)
+     ================================================================ -->
+<div class="page" id="page-product">
+
+  <div class="breadcrumb">
+    <div class="wrap">
+      <div class="bc-in">
+        <a onclick="navigate('home')">Home</a> ›
+        <a onclick="navigate('quartz')">Quartz Sinks</a> ›
+        <span id="bc-name">Product</span>
+      </div>
+    </div>
+  </div>
+
+  <section class="pd-section">
+    <div class="wrap">
+      <div class="pd-in">
+        <div>
+          <div class="gal-main"><img id="gal-main-img" src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=900&q=80" alt="Product main image"/></div>
+          <div class="gal-thumbs">
+            <div class="thumb active" onclick="setThumb(this,'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=80')"><img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=200&q=60" alt="View 1"/></div>
+            <div class="thumb" onclick="setThumb(this,'https://images.unsplash.com/photo-1484154218962-a197022b5858?w=400&q=80')"><img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=200&q=60" alt="View 2"/></div>
+            <div class="thumb" onclick="setThumb(this,'https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=400&q=80')"><img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=200&q=60" alt="View 3"/></div>
+            <div class="thumb" onclick="setThumb(this,'https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=400&q=80')"><img src="https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=200&q=60" alt="Colour detail"/></div>
+          </div>
+        </div>
+        <div>
+          <div class="pd-ser-tag" id="pd-series">Marvel Series</div>
+          <h1 class="pd-nm" id="pd-name">Marvel Black</h1>
+          <p class="pd-tl" id="pd-tagline">The flagship single bowl. Engineered without compromise.</p>
+          <div class="pd-feats">
+            <div class="pdf-item"><div class="pdf-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><div class="pdf-t">Scratch Resistant</div><div class="pdf-d">High Mohs hardness rating</div></div></div>
+            <div class="pdf-item"><div class="pdf-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><div><div class="pdf-t">Sound Dampening</div><div class="pdf-d">Absorbs impact noise</div></div></div>
+            <div class="pdf-item"><div class="pdf-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2c0 0-6 8-6 13a6 6 0 0012 0c0-5-6-13-6-13z"/></svg></div><div><div class="pdf-t">Heat Stable</div><div class="pdf-d">Resists up to 280°C</div></div></div>
+            <div class="pdf-item"><div class="pdf-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5"/></svg></div><div><div class="pdf-t">Non-Porous</div><div class="pdf-d">No sealing ever required</div></div></div>
+          </div>
+          <div class="pd-btns">
+            <button class="btn btn-primary" onclick="navigate('contact')"><span>Request a Quote</span></button>
+            <button class="btn btn-gold" onclick="navigate('contact')"><span>Download Spec Sheet</span></button>
+          </div>
+          <div class="pd-warranty">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            10-Year Manufacturer Warranty · Made in India
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="specs-sec">
+    <div class="wrap">
+      <div class="specs-g">
+        <div>
+          <div class="sh"><span class="eyebrow">Specifications</span><h2>Technical <em>Details</em></h2></div>
+          <div class="specs-tbl">
+            <div class="spec-row"><span class="spec-k">Material</span><span class="spec-v">High-density quartz composite</span></div>
+            <div class="spec-row"><span class="spec-k">Bowl Type</span><span class="spec-v">Single bowl</span></div>
+            <div class="spec-row"><span class="spec-k">Overall Size</span><span class="spec-v">24 × 18 in</span></div>
+            <div class="spec-row"><span class="spec-k">Bowl Depth</span><span class="spec-v">9 in</span></div>
+            <div class="spec-row"><span class="spec-k">Finish Options</span><span class="spec-v">Metallic · Granite</span></div>
+            <div class="spec-row"><span class="spec-k">Colour Options</span><span class="spec-v">Black · White · Grey · Brown · Alaska · Silver · Almond · Rose</span></div>
+            <div class="spec-row"><span class="spec-k">Heat Resistance</span><span class="spec-v">Up to 280°C</span></div>
+            <div class="spec-row"><span class="spec-k">Warranty</span><span class="spec-v">10 Years</span></div>
+          </div>
+        </div>
+        <div class="specs-note">
+          <h3>In the Box</h3>
+          <ul>
+            <li>Quartz sink unit</li>
+            <li>Strainer basket (stainless)</li>
+            <li>Plumbing connectors</li>
+            <li>Mounting clips &amp; template</li>
+            <li>Care &amp; maintenance guide</li>
+            <li>Warranty registration card</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="related-sec">
+    <div class="wrap">
+      <div class="sh rv"><span class="eyebrow">You May Also Like</span><h2>Related <em>Series</em></h2></div>
+      <div class="rel-grid">
+        <div class="rel-card rv" onclick="navigate('product','royal')"><div class="rel-img"><img src="https://images.unsplash.com/photo-1556909172-89cf0b43e8c0?w=600&q=80" alt="Royal"/></div><div class="rel-info"><span>Royal Series</span><h4>Royal White</h4></div></div>
+        <div class="rel-card rv" onclick="navigate('product','imperial')"><div class="rel-img"><img src="https://images.unsplash.com/photo-1556909190-eccf4a8bf97a?w=600&q=80" alt="Imperial"/></div><div class="rel-info"><span>Imperial Series</span><h4>Imperial White</h4></div></div>
+        <div class="rel-card rv" onclick="navigate('product','crystal')"><div class="rel-img"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600&q=80" alt="Crystal"/></div><div class="rel-info"><span>Crystal Series</span><h4>Crystal Grey</h4></div></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="ft-top">
+        <div class="ft-brand"><span class="ft-logo">Vantello<em>.</em></span><p class="ft-tagline">Elevate Every Bathroom.</p><p>Premium bathroom brand. Precision-engineered in India.</p></div>
+        <div class="ft-links">
+          <div class="ft-col"><h4>Products</h4><a onclick="navigate('quartz')">Quartz Sinks</a><a onclick="navigate('bath')">Bath Accessories</a></div>
+          <div class="ft-col"><h4>Company</h4><a onclick="navigate('about')">About</a><a onclick="navigate('contact')">Contact</a></div>
+          <div class="ft-col"><h4>Contact</h4><a href="mailto:hello@vantello.in">hello@vantello.in</a></div>
+        </div>
+      </div>
+      <div class="ft-bot"><span>© 2026 Vantello. All rights reserved.</span><span>"Elevate Every Bathroom."</span></div>
+    </div>
+  </footer>
+
+</div><!-- /page-product -->
+
+
+<!-- ================================================================
+     PAGE: ABOUT
+     ================================================================ -->
+<div class="page" id="page-about">
+
+  <section class="ab-hero">
+    <div class="ab-hero-bg"><img src="https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=1600&q=80" alt="Vantello craftsmanship"/></div>
+    <div class="ab-hero-cover" style="opacity:.75"></div>
+    <div class="ab-hero-c">
+      <span class="eyebrow lt">Our Story</span>
+      <h1>Built on<br/><em>Conviction</em></h1>
+    </div>
+  </section>
+
+  <section class="manifesto">
+    <div class="wrap"><p class="rv">"We don't make bathroom fittings. We make the objects at the centre of your most intimate spaces — built to perform, designed to inspire, guaranteed to endure."</p></div>
+  </section>
+
+  <section class="story-sec">
+    <div class="story-blk">
+      <div class="story-img rv"><img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=800&q=80" alt="Vantello engineering"/></div>
+      <div class="story-txt rv">
+        <span class="eyebrow">The Beginning</span>
+        <h2>Design-Driven.<br/><em>From Day One.</em></h2>
+        <p>Vantello was founded on a single observation: that the Indian home deserved bathroom fittings built to its actual demands — hard water, humid climates, heavy daily use, and the aspiration for true luxury.</p>
+        <p>We spent years studying premium bathroom brands globally before designing our first product. The result is a range that performs as beautifully as it looks.</p>
+      </div>
+    </div>
+    <div class="story-blk rev">
+      <div class="story-img rv"><img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80" alt="Vantello bathroom"/></div>
+      <div class="story-txt rv">
+        <span class="eyebrow">Our Promise</span>
+        <h2>Imported Quality.<br/><em>Indian Access.</em></h2>
+        <p>Vantello occupies the position that ambitious buyers seek: the refinement and performance of global premium brands, accessible through an Indian company that understands Indian homes.</p>
+        <p>Dealers trust us. Architects specify us. Homeowners love us. Because we refuse to compromise.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="vals-sec">
+    <div class="wrap">
+      <div class="sh rv"><span class="eyebrow">Our Values</span><h2>What We<br/><em>Stand For</em></h2></div>
+      <div class="vals-g">
+        <div class="val-card rv"><div class="val-n">01</div><h3>Material Truth</h3><p>We use only high-specification materials. No compromises, ever. What the spec sheet says is what you get.</p></div>
+        <div class="val-card rv"><div class="val-n">02</div><h3>Designed for India</h3><p>Every dimension, every finish, every drain position is calibrated for Indian bathrooms, Indian water, and Indian living habits.</p></div>
+        <div class="val-card rv"><div class="val-n">03</div><h3>Beauty as Discipline</h3><p>Aesthetics are not decoration — they are the result of precision. A beautiful product is an engineered product.</p></div>
+        <div class="val-card rv"><div class="val-n">04</div><h3>Longevity First</h3><p>A bathroom fitting should outlast its bathroom. We back every product with our full warranty because we stand behind what we make.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ab-cta">
+    <div class="wrap rv">
+      <span class="eyebrow">Ready?</span>
+      <h2>Experience<br/><em>Vantello</em></h2>
+      <p>Explore our full range of quartz sinks and bath accessories, or speak directly with our team.</p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:8px">
+        <button class="btn btn-primary" onclick="navigate('quartz')"><span>Quartz Sinks</span></button>
+        <button class="btn btn-gold" onclick="navigate('bath')"><span>Bath Accessories</span></button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <div class="ft-top">
+        <div class="ft-brand"><span class="ft-logo">Vantello<em>.</em></span><p class="ft-tagline">Elevate Every Bathroom.</p><p>Premium bathroom brand. Precision-engineered in India.</p></div>
+        <div class="ft-links">
+          <div class="ft-col"><h4>Products</h4><a onclick="navigate('quartz')">Quartz Sinks</a><a onclick="navigate('bath')">Bath Accessories</a></div>
+          <div class="ft-col"><h4>Company</h4><a onclick="navigate('about')">About</a><a onclick="navigate('contact')">Contact</a></div>
+          <div class="ft-col"><h4>Contact</h4><a href="mailto:hello@vantello.in">hello@vantello.in</a><a href="tel:+919000000000">+91 90000 00000</a></div>
+        </div>
+      </div>
+      <div class="ft-bot"><span>© 2026 Vantello. All rights reserved.</span><span>"Elevate Every Bathroom."</span></div>
+    </div>
+  </footer>
+
+</div><!-- /page-about -->
+
+
+<!-- ================================================================
+     PAGE: CONTACT
+     ================================================================ -->
+<div class="page" id="page-contact">
+
+  <section class="contact-hero">
+    <div class="wrap">
+      <div class="rv">
+        <span class="eyebrow lt">Get in Touch</span>
+        <h1>Let's Build<br/><em>Something Great</em></h1>
+        <p>Homeowners, architects, builders, dealers — we're here to help. Reach out and our team will respond within one business day.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-sec">
+    <div class="wrap">
+      <div class="contact-g">
+
+        <div>
+          <div class="tab-bar">
+            <button class="t-btn active" onclick="switchTab(this,'tab-enquiry')">Product Enquiry</button>
+            <button class="t-btn" onclick="switchTab(this,'tab-dealer')">Dealer / Trade</button>
+            <button class="t-btn" onclick="switchTab(this,'tab-support')">Support</button>
+          </div>
+
+          <div class="t-panel active" id="tab-enquiry">
+            <h3>Tell us about your project</h3>
+            <div class="f-row">
+              <div class="fg"><label>Full Name</label><input type="text" placeholder="Your name"/></div>
+              <div class="fg"><label>Phone</label><input type="tel" placeholder="+91 00000 00000"/></div>
+            </div>
+            <div class="fg"><label>Email</label><input type="email" placeholder="your@email.com"/></div>
+            <div class="fg"><label>I am a...</label>
+              <select>
+                <option value="">Select your role</option>
+                <option>Homeowner</option><option>Interior Designer</option>
+                <option>Architect</option><option>Contractor / Builder</option>
+              </select>
+            </div>
+            <div class="fg"><label>Product Interest</label>
+              <select>
+                <option value="">Select a category or series</option>
+                <option>Quartz Sink — Pearl Series (18×16)</option>
+                <option>Quartz Sink — Crystal Series (21×18)</option>
+                <option>Quartz Sink — Marvel Series (24×18)</option>
+                <option>Quartz Sink — Imperial Series (36×18)</option>
+                <option>Quartz Sink — Fortune Series (36×18)</option>
+                <option>Quartz Sink — Fusion Series (31×19)</option>
+                <option>Quartz Sink — Galaxy Series (30×20)</option>
+                <option>Quartz Sink — Matrix Series (37×18)</option>
+                <option>Quartz Sink — Prada Series (40×20)</option>
+                <option>Quartz Sink — Thar Series (40×20)</option>
+                <option>Quartz Sink — Rock Series (45×20)</option>
+                <option>Quartz Sink — Royal Series (45×20)</option>
+                <option>Bath Accessories</option>
+                <option>Bathroom in One Box Package</option>
+                <option>Not sure — need guidance</option>
+              </select>
+            </div>
+            <div class="fg"><label>Message</label><textarea rows="4" placeholder="Tell us about your project or requirements..."></textarea></div>
+            <button class="btn btn-primary" onclick="submitForm()"><span>Send Enquiry →</span></button>
+          </div>
+
+          <div class="t-panel" id="tab-dealer">
+            <h3>Dealer / Trade Enquiry</h3>
+            <div class="f-row">
+              <div class="fg"><label>Company Name</label><input type="text" placeholder="Your company"/></div>
+              <div class="fg"><label>Contact Person</label><input type="text" placeholder="Your name"/></div>
+            </div>
+            <div class="f-row">
+              <div class="fg"><label>Phone</label><input type="tel" placeholder="+91 00000 00000"/></div>
+              <div class="fg"><label>City</label><input type="text" placeholder="Your city"/></div>
+            </div>
+            <div class="fg"><label>Monthly Volume (approx)</label>
+              <select>
+                <option value="">Select volume</option>
+                <option>1–10 units</option><option>10–50 units</option>
+                <option>50–100 units</option><option>100+ units</option>
+              </select>
+            </div>
+            <div class="fg"><label>Message</label><textarea rows="4" placeholder="Tell us about your business..."></textarea></div>
+            <button class="btn btn-primary" onclick="submitForm()"><span>Submit →</span></button>
+          </div>
+
+          <div class="t-panel" id="tab-support">
+            <h3>Product Support</h3>
+            <div class="f-row">
+              <div class="fg"><label>Name</label><input type="text" placeholder="Your name"/></div>
+              <div class="fg"><label>Order / Invoice No.</label><input type="text" placeholder="e.g. VNT-00123"/></div>
+            </div>
+            <div class="fg"><label>Issue Description</label><textarea rows="5" placeholder="Please describe your issue..."></textarea></div>
+            <button class="btn btn-primary" onclick="submitForm()"><span>Submit →</span></button>
+          </div>
+
+          <div class="form-ok" id="form-ok" style="display:none">
+            <div class="ok-ico">✓</div>
+            <h3>Enquiry Received!</h3>
+            <p>Thank you — our team will respond within 1 business day.</p>
+          </div>
+        </div>
+
+        <div class="c-side">
+          <div class="c-block">
+            <h4>Direct Contact</h4>
+            <div class="c-det"><div class="c-ico">✉</div><div><div class="c-lbl">Email</div><a href="mailto:hello@vantello.in">hello@vantello.in</a></div></div>
+            <div class="c-det"><div class="c-ico">☎</div><div><div class="c-lbl">Phone</div><a href="tel:+919000000000">+91 90000 00000</a></div></div>
+            <div class="c-det"><div class="c-ico">🌐</div><div><div class="c-lbl">Website</div><a href="https://www.levistone.in" target="_blank">www.levistone.in</a></div></div>
+          </div>
+          <div class="wa-blk" onclick="window.open('https://wa.me/919000000000','_blank')">
+            <div class="wa-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div>
+            <div><div class="wa-t">Chat on WhatsApp</div><div class="wa-s">Fastest response — typically within the hour</div></div>
+            <div class="wa-arr">›</div>
+          </div>
+          <div class="c-block">
+            <h4>Response Time</h4>
+            <p>We respond to all enquiries within <strong>1 business day</strong>. For urgent matters, WhatsApp is fastest.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="ft-top">
+        <div class="ft-brand"><span class="ft-logo">Vantello<em>.</em></span><p class="ft-tagline">Elevate Every Bathroom.</p><p>Premium bathroom brand. Precision-engineered in India.</p></div>
+        <div class="ft-links">
+          <div class="ft-col"><h4>Products</h4><a onclick="navigate('quartz')">Quartz Sinks</a><a onclick="navigate('bath')">Bath Accessories</a></div>
+          <div class="ft-col"><h4>Company</h4><a onclick="navigate('about')">About</a><a onclick="navigate('contact')">Contact</a></div>
+          <div class="ft-col"><h4>Contact</h4><a href="mailto:hello@vantello.in">hello@vantello.in</a><a href="tel:+919000000000">+91 90000 00000</a></div>
+        </div>
+      </div>
+      <div class="ft-bot"><span>© 2026 Vantello. All rights reserved.</span><span>"Elevate Every Bathroom."</span></div>
+    </div>
+  </footer>
+
+</div><!-- /page-contact -->
+
+<script src="script.js"></script>
+</body>
+</html>
